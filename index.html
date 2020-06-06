@@ -14,7 +14,7 @@
             }
 
             .blacken {
-                color: black;
+                background-color: black;
             }
         </style>
     </head>
@@ -35,7 +35,7 @@
                 for (let i = 0; i < sideSquared; i++) {
                     let newDiv = document.createElement('div');
                     newDiv.classList.add('cell');
-                    newDiv.textContent = 'yo';
+                    // newDiv.textContent = 'yo';
                     const container = document.querySelector('#container');
                     container.appendChild(newDiv);
                 }
@@ -62,6 +62,7 @@
             const cells = document.querySelectorAll('.cell');
             cells.forEach((cell) => {
                 cell.addEventListener('mouseover', () => {
+                    // alert('yo');
                     colorize(cell);
                 });
             });
