@@ -1,24 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>
-        Etch-A-Sketch
-    </title>
-</head>
-<body>
+    <head>
+        <title>
+            Etch-A-Sketch
+        </title>
+        <style>
+            .cell {
+                height: 20px;
+                width: 20px;
+                border-style: solid;
+                border-color: black;
 
-<div id='container'>
+            }
 
-</div>
+            #container {
+                display: grid;
+            }
+            
+        </style>
+    </head>
+
+    <body>
+
+    <div id='container'></div>
 
 
 
-<script>
+        <script>
 
-let style = document.createElement('style')
-style.appendChild(document.createTextNode("color: black"))
-document.head.appendChild(style);
+            function squareUp() {
+                let side = 16;
+                for (let i = 0; i < side; i++) {
+                    let newDiv = document.createElement('div');
+                    newDiv.classList.add('cell');
+                    newDiv.textContent = 'yo';
+                    const container = document.querySelector('#container');
+                    container.appendChild(newDiv);
+                }
 
-</script>
-</body>
+            }
+
+            let style = document.querySelector('style')
+            style.appendChild(document.createTextNode("body {background-color: white;}"))
+            document.head.appendChild(style);
+
+            squareUp()
+
+        </script>
+    </body>
 </html>
