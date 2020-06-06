@@ -16,19 +16,41 @@
             .blacken {
                 background-color: black;
             }
+
+            .buttonStyle {
+                background-color: teal;
+                border: 0px;
+                height: 35px;
+                width: 90px;
+                color: white;
+                border-radius: 5px;
+                font-size: 20px;
+                margin: auto;
+            }
+
+            .containStyle {
+                margin: auto;
+                width: 50%;
+            }
+
         </style>
     </head>
 
     <body>
 
-    <div id='container'></div>
+        <button class='buttonStyle' id="reset">Reset</button>
+        <div class='containStyle' id='container'></div>
 
 
 
         <script>
+            const container = document.querySelector('#container');
 
-            function squareUp() {
-                let side = 16;
+            function colorize(cell) {
+                cell.classList.add('blacken')
+            }
+            
+            function squareUp(side) {
                 let sideSquared = side ** 2;
 
                 // Create all the cells
@@ -36,7 +58,6 @@
                     let newDiv = document.createElement('div');
                     newDiv.classList.add('cell');
                     // newDiv.textContent = 'yo';
-                    const container = document.querySelector('#container');
                     container.appendChild(newDiv);
                 }
                 let cellSize = `20px`
@@ -49,22 +70,35 @@
                 document.head.appendChild(style);
             }
 
-            let style = document.querySelector('style')
-            style.appendChild(document.createTextNode("body {background-color: white;}"))
-            document.head.appendChild(style);
 
-            function colorize(cell) {
-                cell.classList.add('blacken')
+
+            // initialize square
+            squareUp(16);
+
+            // cell section
+            const cells = document.querySelectorAll('.cell');
+            const button = document.querySelector('#reset')
+
+            function reset(cells) {
+                // cells.forEach((cell) => {
+                //     cell.classList.remove('blacken')
+                // })
+                let len = prompt(`Enter length of side`)
+                container.textContent = ''
+                squareUp(len)
             }
 
-            squareUp()
 
-            const cells = document.querySelectorAll('.cell');
+
             cells.forEach((cell) => {
                 cell.addEventListener('mouseover', () => {
                     // alert('yo');
                     colorize(cell);
                 });
+            });
+
+            button.addEventListener('click', () => {
+                reset(cells);
             });
 
         </script>
