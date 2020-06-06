@@ -60,6 +60,8 @@
                     // newDiv.textContent = 'yo';
                     container.appendChild(newDiv);
                 }
+                
+                // Create container grid
                 let cellSize = `20px`
                 let rowLength = ``
                 for (let i = 0; i < side; i++) {
@@ -68,6 +70,15 @@
                 let style = document.querySelector('style')
                 style.appendChild(document.createTextNode(`#container {display: grid; grid-template-columns: ${rowLength}; grid-template-rows: ${rowLength};}`))    
                 document.head.appendChild(style);
+
+                // Create alerts
+                const cells = document.querySelectorAll('.cell');
+                cells.forEach((cell) => {
+                    cell.addEventListener('mouseover', () => {
+                        // alert('yo');
+                        colorize(cell);
+                    });
+                });
             }
 
 
@@ -87,15 +98,6 @@
                 container.textContent = ''
                 squareUp(len)
             }
-
-
-
-            cells.forEach((cell) => {
-                cell.addEventListener('mouseover', () => {
-                    // alert('yo');
-                    colorize(cell);
-                });
-            });
 
             button.addEventListener('click', () => {
                 reset(cells);
