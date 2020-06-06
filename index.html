@@ -6,7 +6,7 @@
         </title>
         <style>
             .cell {
-                border: 1px solid black;
+                border: 1px solid rgb(220, 220, 220);
                 /* border-style: solid;
                 border-spacing: 1px;
                 border-color: black; */
@@ -25,7 +25,7 @@
                 color: white;
                 border-radius: 5px;
                 font-size: 20px;
-                margin: auto;
+                margin: 15px;
             }
 
             .containStyle {
@@ -39,6 +39,7 @@
     <body>
 
         <button class='buttonStyle' id="reset">Reset</button>
+        <button class='buttonStyle' id='colorize'>Colorize</button>
         <div class='containStyle' id='container'></div>
 
 
@@ -46,7 +47,28 @@
         <script>
             const container = document.querySelector('#container');
 
-            function colorize(cell) {
+            // function toggleColor() {
+            //     const cells = document.querySelectorAll('.cell');
+            //     if (x = 0) {
+            //         cells.forEach((cell) => {
+            //             cell.addEventListener('mouseover', () => {
+            //                 // alert('yo');
+            //                 blacken(cell);
+            //             });
+            //         });
+            //         x = 1;
+            //     } else {
+            //         cells.forEach((cell) => {
+            //             cell.addEventListener('mouseover', () => {
+            //                 colorize(cell);
+            //             })
+            //         })
+            //         x = 0;
+            //     }
+            // }
+            
+            
+            function blacken(cell) {
                 cell.classList.add('blacken')
             }
             
@@ -62,7 +84,8 @@
                 }
                 
                 // Create container grid
-                let cellSize = `20px`
+                let cellSize = 40 / side
+                cellSize = cellSize + `em`;
                 let rowLength = ``
                 for (let i = 0; i < side; i++) {
                     rowLength = rowLength + ` ` + cellSize;
@@ -72,15 +95,14 @@
                 document.head.appendChild(style);
 
                 // Create alerts
+                let x = 0;
                 const cells = document.querySelectorAll('.cell');
                 cells.forEach((cell) => {
                     cell.addEventListener('mouseover', () => {
-                        // alert('yo');
-                        colorize(cell);
+                        blacken(cell);
                     });
                 });
             }
-
 
 
             // initialize square
@@ -95,6 +117,9 @@
                 //     cell.classList.remove('blacken')
                 // })
                 let len = prompt(`Enter length of side`)
+                if (len === null) {
+                    return
+                }
                 container.textContent = ''
                 squareUp(len)
             }
