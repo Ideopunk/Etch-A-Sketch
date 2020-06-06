@@ -6,17 +6,16 @@
         </title>
         <style>
             .cell {
-                height: 20px;
-                width: 20px;
-                border-style: solid;
-                border-color: black;
+                border: 1px solid black;
+                /* border-style: solid;
+                border-spacing: 1px;
+                border-color: black; */
 
             }
 
-            #container {
-                display: grid;
+            .blacken {
+                color: black;
             }
-            
         </style>
     </head>
 
@@ -30,21 +29,42 @@
 
             function squareUp() {
                 let side = 16;
-                for (let i = 0; i < side; i++) {
+                let sideSquared = side ** 2;
+
+                // Create all the cells
+                for (let i = 0; i < sideSquared; i++) {
                     let newDiv = document.createElement('div');
                     newDiv.classList.add('cell');
                     newDiv.textContent = 'yo';
                     const container = document.querySelector('#container');
                     container.appendChild(newDiv);
                 }
-
+                let cellSize = `20px`
+                let rowLength = ``
+                for (let i = 0; i < side; i++) {
+                    rowLength = rowLength + ` ` + cellSize;
+                }
+                let style = document.querySelector('style')
+                style.appendChild(document.createTextNode(`#container {display: grid; grid-template-columns: ${rowLength}; grid-template-rows: ${rowLength};}`))    
+                document.head.appendChild(style);
             }
 
             let style = document.querySelector('style')
             style.appendChild(document.createTextNode("body {background-color: white;}"))
             document.head.appendChild(style);
 
+            function colorize(cell) {
+                cell.classList.add('blacken')
+            }
+
             squareUp()
+
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach((cell) => {
+                cell.addEventListener('mouseover', () => {
+                    colorize(cell);
+                });
+            });
 
         </script>
     </body>
