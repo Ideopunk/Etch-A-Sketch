@@ -17,6 +17,10 @@
                 background-color: black;
             }
 
+            .peach {
+                background-color: peachpuff;
+            }
+
             .buttonStyle {
                 background-color: teal;
                 border: 0px;
@@ -39,6 +43,7 @@
     <body>
 
         <button class='buttonStyle' id="reset">Reset</button>
+        <button class='buttonStyle' id="resize">Resize</button>
         <button class='buttonStyle' id='colorize'>Colorize</button>
         <div class='containStyle' id='container'></div>
 
@@ -46,33 +51,26 @@
 
         <script>
             const container = document.querySelector('#container');
-
-            // function toggleColor() {
-            //     const cells = document.querySelectorAll('.cell');
-            //     if (x = 0) {
-            //         cells.forEach((cell) => {
-            //             cell.addEventListener('mouseover', () => {
-            //                 // alert('yo');
-            //                 blacken(cell);
-            //             });
-            //         });
-            //         x = 1;
-            //     } else {
-            //         cells.forEach((cell) => {
-            //             cell.addEventListener('mouseover', () => {
-            //                 colorize(cell);
-            //             })
-            //         })
-            //         x = 0;
-            //     }
-            // }
+           
             
-            
-            function blacken(cell) {
-                cell.classList.add('blacken')
+            function blacken(cells) {
+                cells.forEach((cell) => {
+                    cell.addEventListener('mouseover', () => {
+                        cell.classList.add('blacken');
+                    });
+                });   
             }
-            
-            function squareUp(side) {
+
+            function colorize(cells) {
+                cells.forEach((cell) => {
+                    cell.addEventListener('mouseover', () => {
+                        cell.classList.add('peach');
+                    });
+                });  
+            }
+
+
+            function squareUp(side, color) {
                 let sideSquared = side ** 2;
 
                 // Create all the cells
@@ -94,38 +92,77 @@
                 style.appendChild(document.createTextNode(`#container {display: grid; grid-template-columns: ${rowLength}; grid-template-rows: ${rowLength};}`))    
                 document.head.appendChild(style);
 
-                // Create alerts
-                let x = 0;
+                // Choose color scheme
                 const cells = document.querySelectorAll('.cell');
-                cells.forEach((cell) => {
-                    cell.addEventListener('mouseover', () => {
-                        blacken(cell);
-                    });
-                });
+                if (color === 'B & W') {
+                    blacken(cells);
+                } else {
+                    colorize(cells);
+                }
             }
 
+            function toggleColor() {
+                const cells = document.querySelectorAll('.cell');
+                let colorState = document.querySelector('#colorize')
+                let lengthSquared = document.querySelector('#container').childElementCount;
+                let length = Math.sqrt(lengthSquared)
+                if (colorState.textContent === 'Colorize') {
+                    container.textContent = '';
+                    squareUp(length, 'colorize');
+                    colorState.textContent = 'B & W';
+                } else {
+                    container.textContent = ''
+                    squareUp(length, 'B & W');
+                    colorState.textContent = 'Colorize';
+                }
+            }
 
             // initialize square
-            squareUp(16);
+            squareUp(16, 'B & W');
 
             // cell section
             const cells = document.querySelectorAll('.cell');
-            const button = document.querySelector('#reset')
+            const resetButton = document.querySelector('#reset');
+            const resizeButton = document.querySelector('#resize');
+            const colorButton = document.querySelector('#colorize');
 
             function reset(cells) {
-                // cells.forEach((cell) => {
-                //     cell.classList.remove('blacken')
-                // })
+                let lengthSquared = document.querySelector('#container').childElementCount;
+                let length = Math.sqrt(lengthSquared)
+                let colorState = document.querySelector('#colorize')
+                alert(colorState.textContent)
+                container.textContent = ''
+                if (colorState.textContent !== 'B & W') {
+                    squareUp(length, 'B & W');
+                } else {
+                    squareUp(length, 'colorize')
+                }
+            }
+
+            function resize(cells) {
                 let len = prompt(`Enter length of side`)
                 if (len === null) {
                     return
                 }
+                let colorState = document.querySelector('#colorize')
                 container.textContent = ''
-                squareUp(len)
+                if (colorState.textContent !== 'B & W') {
+                    squareUp(len, 'B & W');
+                } else {
+                    squareUp(len, 'colorize')
+                }
             }
 
-            button.addEventListener('click', () => {
+            resetButton.addEventListener('click', () => {
                 reset(cells);
+            });
+            
+            resizeButton.addEventListener('click', () => {
+                resize(cells);
+            });
+
+            colorButton.addEventListener('click', () => {
+                toggleColor();
             });
 
         </script>
