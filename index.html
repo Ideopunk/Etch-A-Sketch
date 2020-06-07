@@ -29,7 +29,7 @@
             }
 
             .containStyle {
-                margin: 20px 100px;
+                margin: 20px 30px;
                 width: 50%;
             }
 
@@ -41,7 +41,7 @@
 
             body {
                 display: grid;
-                grid-template-columns: 100px 1000px;
+                grid-template-columns: 100px 100px;
             }
 
             h1 {
@@ -83,7 +83,6 @@
             function colorize(cells) {
                 cells.forEach((cell) => {
                     cell.addEventListener('mouseover', () => {
-                        // cell.classList.add('peach');
                         var hoo = Math.floor(Math.random() * 40) + 320;
                         var x = Math.random()
                         if (x < 0.34) {
@@ -110,7 +109,6 @@
                 for (let i = 0; i < sideSquared; i++) {
                     let newDiv = document.createElement('div');
                     newDiv.classList.add('cell');
-                    // newDiv.textContent = 'yo';
                     container.appendChild(newDiv);
                 }
                 
