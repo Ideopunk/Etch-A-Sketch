@@ -18,7 +18,7 @@
             }
 
             .buttonStyle {
-                background-color: teal;
+                background-color: palevioletred;
                 border: 0px;
                 height: 35px;
                 width: 90px;
@@ -49,6 +49,7 @@
                 margin: 7px;
                 position: relative;
                 top: -100px;
+                color: purple;
             }
         </style>
     </head>
@@ -82,8 +83,21 @@
             function colorize(cells) {
                 cells.forEach((cell) => {
                     cell.addEventListener('mouseover', () => {
-                        cell.classList.add('peach');
-                        // cell.style.color = 'blue';
+                        // cell.classList.add('peach');
+                        var hoo = Math.floor(Math.random() * 40) + 320;
+                        var x = Math.random()
+                        if (x < 0.34) {
+                            var satch = `65%`
+                            var lite = `65%`
+                        } else if (x < 0.67) {
+                            var satch = `70%`
+                            var lite = `70%`
+                        } else {
+                            var satch = `75%`
+                            var lite = `75%`
+                        }
+                        
+                        cell.style.backgroundColor = `hsl(${hoo}, ${satch}, ${lite})`;
                     });
                 });  
             }
@@ -158,9 +172,15 @@
             }
 
             function resize(cells) {
-                let len = prompt(`Enter length of side`)
-                if (len === null) {
-                    return
+                while (true) {
+                    var len = prompt(`Enter length of side (1-128)`)
+                    if (len === null) {
+                        return;
+                    } 
+                    len = Number(len);
+                    if (len > 0 && len < 129) {
+                        break;
+                    }
                 }
                 let colorState = document.querySelector('#colorize')
                 container.textContent = ''
